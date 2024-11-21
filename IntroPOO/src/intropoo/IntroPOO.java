@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 public class IntroPOO {
@@ -17,32 +16,31 @@ public class IntroPOO {
         //Pedindo CPF e Nome
         boolean erro = true;
         do {
-            try{
+            try {
                 input = JOptionPane.showInputDialog("Informe o CPF: ");
                 if (input.length() != 11) {
-                    throw new Exception ();
+                    throw new Exception("CPF precisa ter 11 dígitos!");
                 }
                 p.setCpf(Long.parseLong(input));
                 erro = false;
-            } catch(NumberFormatException ex) {
+            } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "CPF Inválido");
-                ex.printStackTrace();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "CPF precisa ter 11 dígitos");
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
-        } while(erro);
-        
+        } while (erro);
+
         erro = true;
         do {
             try {
                 input = JOptionPane.showInputDialog("Informe o Nome: ");
                 if (input.trim().isEmpty()) {
-                    throw new Exception ();
+                    throw new Exception("Nome é obrigatório");
                 }
                 p.setNome(input);
                 erro = false;
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Nome é obrigatório");
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         } while (erro);
         //Pedindo a Data de Nascimento
@@ -58,14 +56,14 @@ public class IntroPOO {
                 Calendar hoje = Calendar.getInstance();
                 hoje.getTime();
                 if (hoje.before(dataNasc)) {
-                    throw new Exception();
+                    throw new Exception("Data Nascimento não pode ser posterior a data de hoje!");
                 }
                 p.setDataNascimento(data);
                 erro = false;
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(null, "Data Inválida!");
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Data Nascimento não pode ser posterior a data de hoje!");
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         } while (erro);
         //Pedindo a Qtde de Filhos
@@ -96,12 +94,12 @@ public class IntroPOO {
             try {
                 input = JOptionPane.showInputDialog("Informe o valor hora: ");
                 p.setValorHora(Float.parseFloat(input));
-                erro = false; 
+                erro = false;
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Formato de valor hora inválido");               
+                JOptionPane.showMessageDialog(null, "Formato de valor hora inválido");
             }
         } while (erro);
-        
+
         //Cálculo e exibição dos resultados
         float valorAReceber = p.getValorHora() * p.getHorasTrabalhadas();
         float bonus = p.calcularBonus();
@@ -115,5 +113,5 @@ public class IntroPOO {
         mensagem += "\nValor Total: R$ " + String.format("%.2f", (valorAReceber + bonus));
         JOptionPane.showMessageDialog(null, mensagem);
     }
-    
+
 }
