@@ -60,7 +60,7 @@ public class Pessoa {
         this.horasTrabalhadas = horasTrabalhadas;
     }
     
-        public int calcularIdade() {
+    public int calcularIdade() {
         Calendar dataNasc = Calendar.getInstance();
         dataNasc.setTime(dataNascimento);
 
@@ -76,7 +76,7 @@ public class Pessoa {
         }
         return idade;
     }
-     
+
     //de 1 a 2 filhos, 5%; de 3 a 4, 10%; mais que 4, 20%     
     public float calcularBonus() {
         float valorTotal = valorHora * horasTrabalhadas;
@@ -91,7 +91,6 @@ public class Pessoa {
             }
         }
         return valorTotal * percentual;
-    } 
+    }
 
-    
 }
